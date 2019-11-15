@@ -37,7 +37,6 @@ class AddNotes extends Component {
       console.log("RESULT", result);
 
       if (result._id) {
-        console.log("SUCCES99S", result);
         this.props.history.push("/notes");
       } else {
         console.log("ERROR", result.error);

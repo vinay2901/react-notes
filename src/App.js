@@ -10,6 +10,8 @@ import Note from "./components/Notes/Note";
 import Weather from "./components/Weather/Weather";
 import Header from "./components/Header/Header";
 import AddNotes from "./components/Notes/AddNotes";
+import EditNote from "./components/Notes/EditNote";
+import Logout from "./components/User/Logout";
 
 class App extends React.Component {
   constructor(props) {
@@ -28,8 +30,10 @@ class App extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/notes" component={Note} />
             <Route path="/addnotes" component={AddNotes} />
+            <Route path="/editnotes" component={EditNote} />
             <Route path="/profile" component={User} />
             <Route path="/weather" component={Weather} />
+            <Route path="/logout" component={Logout} />
             <Link to="/notes">User</Link>
           </Switch>
         </div>

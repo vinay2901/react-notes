@@ -10,23 +10,7 @@ class Note extends Component {
     super(props);
     this.state = {
       isAuthenticated: true,
-      notes: [
-        {
-          _id: 1,
-          title: "NOTE1",
-          description: "SSdfghjkliuyf nhguyfhj"
-        },
-        {
-          _id: 2,
-          title: "NOTE2",
-          description: "SSdfghjkliuyf nhguyfhj"
-        },
-        {
-          _id: 3,
-          title: "NOTE3",
-          description: "SSdfghjkliuyf nhguyfhj"
-        }
-      ]
+      notes: []
     };
   }
 
@@ -35,6 +19,9 @@ class Note extends Component {
     let token = await localStorage.getItem("token");
 
     let allNotes = await callGetAPI("GET", "notes", { token: token });
+    if (allNotes.error) {
+      this.props.history.push("/login");
+    }
     this.setState({ notes: allNotes.notes });
   }
 
@@ -60,12 +47,11 @@ class Note extends Component {
 
   viewNoteHandler = async id => {
     console.log("view NOTES", id);
-    let token = localStorage.getItem("token");
+    let token = await localStorage.getItem("token");
     let details = await callGetAPI("GET", `note?id=${id}`, {
       token: token,
       "content-type": "application/json"
     });
-    console.log("------", details);
     if (details.message == "success") {
       this.setState({ noteDetails: details.notes, showModal: true });
     }
@@ -73,6 +59,9 @@ class Note extends Component {
 
   editNoteHandler = id => {
     console.log("EDIT NOTES", id);
+    localStorage.setItem("noteId", id);
+
+    this.props.history.push("/editnotes");
   };
 
   hideModalHandler = () => {

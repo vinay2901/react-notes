@@ -58,14 +58,14 @@ class Weather extends Component {
               </td>
             </tr>
             <tr>
-              <td>LAT</td>
+              <td>LATITUDE</td>
               <td>
                 {this.state.weatherReport &&
                   this.state.weatherReport.location.lat}
               </td>
             </tr>
             <tr>
-              <td>LAT</td>
+              <td>LONGITUDE</td>
               <td>
                 {this.state.weatherReport &&
                   this.state.weatherReport.location.lon}

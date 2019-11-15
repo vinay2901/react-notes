@@ -14,6 +14,9 @@ class User extends Component {
   async componentDidMount() {
     let token = localStorage.getItem("token");
     let profileInfo = await callGetAPI("GET", "user", { token: token });
+    if (profileInfo.error) {
+      this.props.history.push("/login");
+    }
     this.setState({ userDetails: profileInfo });
   }
 
