@@ -32,7 +32,7 @@ class Note extends Component {
 
   async componentDidMount() {
     console.log("COMPONENET LOADED");
-    let token = localStorage.getItem("token");
+    let token = await localStorage.getItem("token");
 
     let allNotes = await callGetAPI("GET", "notes", { token: token });
     this.setState({ notes: allNotes.notes });

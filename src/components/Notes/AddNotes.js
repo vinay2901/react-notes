@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "../Header/Header";
 import { Form, Button, Container } from "react-bootstrap";
 import Modal from "../UI/Modal/Modal";
+import { callAPI } from "../../apis/api";
 
 class AddNotes extends Component {
   constructor(props) {
@@ -13,6 +14,38 @@ class AddNotes extends Component {
       content: ""
     };
   }
+
+  handleSubmission = async () => {
+    if (!this.title.value || !this.content.value) {
+      this.setState({ showModal: true, message: "FILL ALL FIELDS" });
+    } else {
+      let requestObject = {
+        title: this.title.value,
+        content: this.content.value
+      };
+      console.log("SEND THIS", requestObject);
+      let token = localStorage.getItem("token");
+      let result = await callAPI(
+        "POST",
+        "note",
+        JSON.stringify(requestObject),
+        {
+          token: token,
+          "content-type": "application/json"
+        }
+      );
+      console.log("RESULT", result);
+
+      if (result._id) {
+        console.log("SUCCES99S", result);
+        this.props.history.push("/notes");
+      } else {
+        console.log("ERROR", result.error);
+        this.setState({ showModal: true, message: result.error });
+      }
+    }
+  };
+
   render() {
     return (
       <div>
